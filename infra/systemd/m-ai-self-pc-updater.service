@@ -1,0 +1,14 @@
+[Unit]
+Description=M-AI-SELF-PC client updater
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/M-AI-SELF-PC-
+ExecStart=%h/M-AI-SELF-PC-/scripts/update_client.sh
+Environment=UPDATE_REMOTE=origin
+Environment=UPDATE_BRANCH=work
+
+[Install]
+WantedBy=multi-user.target
