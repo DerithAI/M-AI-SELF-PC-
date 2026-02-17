@@ -11,6 +11,8 @@ class Settings:
     data_dir: Path
     model_dir: Path
     mlflow_tracking_uri: str
+    mlflow_experiment_name: str
+    mlflow_run_name: str
     s3_bucket: str
 
 
@@ -22,5 +24,7 @@ def load_settings() -> Settings:
         data_dir=data_dir,
         model_dir=model_dir,
         mlflow_tracking_uri=os.getenv("MLFLOW_TRACKING_URI", "http://localhost:5000"),
+        mlflow_experiment_name=os.getenv("MLFLOW_EXPERIMENT_NAME", "baseline-experiment"),
+        mlflow_run_name=os.getenv("MLFLOW_RUN_NAME", "linear-model-train"),
         s3_bucket=os.getenv("S3_BUCKET", "your-bucket"),
     )

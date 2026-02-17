@@ -36,3 +36,10 @@
 - **M3:** Staging inference service live.
 - **M4:** Monitoring + automated MLOps.
 - **M5:** Production readiness and scale.
+
+## Deliverables per milestone
+- **M1:** data contracts, quality checks, ingestion script.
+- **M2:** reproducible training run, metrics report, model artifact.
+- **M3:** running API with health checks and deployment manifest.
+- **M4:** dashboards + alerts + CI workflow for model release.
+- **M5:** performance benchmark, rollback plan, operational runbook.
