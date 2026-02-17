@@ -13,6 +13,11 @@ def compute_metrics(targets: list[float], predictions: list[float]) -> dict[str,
     mae = sum(abs(err) for err in errors) / len(errors)
     mse = sum(err * err for err in errors) / len(errors)
     return {"mae": mae, "mse": mse}
+from pathlib import Path
+
+from src.config import load_settings
+from src.data import load_csv
+from src.model import train_linear_model
 
 
 def main() -> None:
@@ -46,6 +51,10 @@ def main() -> None:
 
     print(f"Saved model to {model_path}")
     print(f"Training metrics: MAE={metrics['mae']:.4f}, MSE={metrics['mse']:.4f}")
+
+    settings.model_dir.mkdir(parents=True, exist_ok=True)
+    model.save(model_path)
+    print(f"Saved model to {model_path}")
 
 
 if __name__ == "__main__":

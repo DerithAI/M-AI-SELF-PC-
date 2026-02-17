@@ -55,3 +55,11 @@ See `docs/next-steps.md` for a practical roadmap (2 weeks, 6 weeks, 3 months).
 ## Agent bootstrap
 - Szybki start agenta: `./scripts/setup_agent.sh`
 - Instrukcja auto-update klienta: `docs/agent-setup.md`
+```
+
+## Quickstart (suggested)
+1. Copy `.env.example` to `.env`.
+2. Create a virtualenv and install dependencies.
+3. Run a baseline training job: `python -m src.train`.
+4. Serve the model: `uvicorn src.serve.app:app --reload`.
+5. Start with `docs/architecture.md` and `docs/plan.md`.
