@@ -11,6 +11,10 @@ class LinearModel:
     bias: float
 
     def predict_row(self, row: list[float]) -> float:
+        if len(row) != len(self.weights):
+            raise ValueError(
+                f"Expected {len(self.weights)} features, received {len(row)}."
+            )
         return sum(weight * value for weight, value in zip(self.weights, row)) + self.bias
 
     def predict(self, features: list[list[float]]) -> list[float]:

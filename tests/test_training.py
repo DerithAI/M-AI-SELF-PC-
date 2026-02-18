@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import pytest
+
 from src.data import load_csv
 from src.model import LinearModel, train_linear_model
 
@@ -22,3 +24,10 @@ def test_train_and_save_model(tmp_path: Path) -> None:
     model.save(out)
     loaded = LinearModel.load(out)
     assert loaded.predict([[1.0, 2.0]]) == model.predict([[1.0, 2.0]])
+
+
+def test_predict_row_rejects_wrong_feature_count() -> None:
+    model = LinearModel(weights=[1.0, 2.0], bias=0.5)
+
+    with pytest.raises(ValueError, match="Expected 2 features, received 1"):
+        model.predict_row([1.0])
