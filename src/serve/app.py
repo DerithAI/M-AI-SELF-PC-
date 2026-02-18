@@ -6,7 +6,6 @@ from pathlib import Path
 from typing import List
 
 from fastapi import FastAPI, HTTPException
-from fastapi import FastAPI
 from pydantic import BaseModel
 
 from src.config import load_settings
@@ -28,7 +27,6 @@ class ModelState:
 
 
 state = ModelState()
-    model: LinearModel
 
 
 def load_model(path: Path) -> LinearModel:
@@ -65,17 +63,12 @@ def create_app() -> FastAPI:
                 status_code=503,
                 detail="Model not loaded. Run training first: python -m src.train",
             )
-    state = ModelState(model=load_model(model_path))
 
-    app = FastAPI(title="ML-first inference service")
+        try:
+            preds = state.model.predict(request.features)
+        except ValueError as exc:
+            raise HTTPException(status_code=400, detail=str(exc)) from exc
 
-    @app.get("/health")
-    def health() -> dict[str, str]:
-        return {"status": "ok", "model": model_path.name}
-
-    @app.post("/predict", response_model=PredictResponse)
-    def predict(request: PredictRequest) -> PredictResponse:
-        preds = state.model.predict(request.features)
         return PredictResponse(predictions=preds)
 
     return app
